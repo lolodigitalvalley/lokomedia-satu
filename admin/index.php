@@ -1,8 +1,12 @@
+<!DOCTYPE html>
 <html>
-<head>
-<title>:: Lokomedia Community Yogyakarta ::</title>
-<link href="../config/adminstyle.css" rel="stylesheet" type="text/css" />
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>::: Lokomedia Community Yogyakarta :::</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link href="../config/adminstyle.css" rel="stylesheet" type="text/css" />
+	</head>
 <body>
 <div id="header">
   <div id="content">

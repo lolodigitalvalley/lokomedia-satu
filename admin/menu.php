@@ -1,13 +1,13 @@
 <?php
-include "../config/koneksi.php";
+include '../config/koneksi.php';
 
-if ($_SESSION[leveluser]=='admin'){
-  $sql=mysql_query("select * from modul where aktif='Y' order by urutan");
+if ($_SESSION['leveluser']=='admin'){
+  $sql=mysql_query("SELECT * FROM modul WHERE aktif = 'Y' ORDER BY urutan");
 }
 else{
-  $sql=mysql_query("select * from modul where status='user' and aktif='Y' order by urutan"); 
+  $sql=mysql_query("SELECT * FROM modul WHERE status='user' AND aktif='Y' ORDER BY urutan"); 
 } 
 while ($data=mysql_fetch_array($sql)){  
-  echo "<li><a href='$data[link]'>&#187; $data[nama_modul]</a></li>";
+  echo '<li><a href="'.$data['link'].'">&#187; '.$data['nama_modul'].'</a></li>';
 }
 ?>

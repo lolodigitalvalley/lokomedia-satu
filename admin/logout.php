@@ -1,7 +1,8 @@
 <?php
   session_start();
   session_destroy();
-  echo "<center>Anda telah sukses keluar sistem <b>[LOGOUT]<b>";
+  echo "<script>alert('Anda telah keluar dari halaman administrator'); window.location = '../'</script>";
+  
 
 // Apabila setelah logout langsung menuju halaman utama website, aktifkan baris di bawah ini:
 

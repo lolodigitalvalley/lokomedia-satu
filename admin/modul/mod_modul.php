@@ -1,11 +1,18 @@
 <?php
-switch($_GET[act]){
+if(count(get_included_files())==1){
+  echo '<meta http-equiv="refresh" content="0; url=http://'.$_SERVER['HTTP_HOST'].'">';
+  exit('Direct access not permitted.');
+}
+
+$act = isset($_GET['act']) ? $_GET['act'] : '';
+
+switch($act){
   // Tampil Modul
   default:
     echo "<h2>Modul</h2>
           <input type=button value='Tambah Modul' onclick=location.href='?module=modul&act=tambahmodul'>
           <table>
-          <tr><th>no</th><th>nama modul</th><th>link</th><th>publish</th><th>aktif</th><th>status</th><th>aksi</th></tr>";
+          <tr><th>Urutan</th><th>Nama Modul</th><th>Link</th><th>Publish</th><th>Aktif</th><th>Status</th><th>Aksi</th></tr>";
     $tampil=mysql_query("SELECT * FROM modul ORDER BY urutan");
     while ($r=mysql_fetch_array($tampil)){
       echo "<tr><td>$r[urutan]</td>

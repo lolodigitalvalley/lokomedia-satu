@@ -1,50 +1,50 @@
 <?php
 session_start();
-include "../config/koneksi.php";
-include "../config/library.php";
+include '../config/koneksi.php';
+include '../config/library.php';
 
-$module=$_GET[module];
-$act=$_GET[act];
+$module = isset($_GET['module']) ? $_GET['module'] : '';
+$act = isset($_GET['act']) ? $_GET['act'] : '';
 
 
 // Menghapus data
 if (isset($module) AND $act=='hapus'){
-  mysql_query("DELETE FROM ".$module." WHERE id_".$module."='$_GET[id]'");
+  mysql_query("DELETE FROM ".$module." WHERE id_".$module."='".$_GET['id']."'");
   header('location:media.php?module='.$module);
 }
 
 
 // Input user
 elseif ($module=='user' AND $act=='input'){
-  $pass=md5($_POST[password]);
+  $pass=md5($_POST['password']);
   mysql_query("INSERT INTO user(id_user,
                                 password,
                                 nama_lengkap,
                                 email) 
-	                       VALUES('$_POST[id_user]',
-                                '$pass',
-                                '$_POST[nama_lengkap]',
-                                '$_POST[email]')");
+	                       VALUES('".$_POST['id_user']."',
+                                '".$pass."',
+                                '".$_POST['nama_lengkap']."',
+                                '".$_POST['email']."')");
   header('location:media.php?module='.$module);
 }
 
 // Update user
 elseif ($module=='user' AND $act=='update'){
   // Apabila password tidak diubah
-  if (empty($_POST[password])) {
-    mysql_query("UPDATE user SET id_user      = '$_POST[id_user]',
-                                 nama_lengkap = '$_POST[nama_lengkap]',
-                                 email        = '$_POST[email]'  
-                           WHERE id_user      = '$_POST[id]'");
+  if (empty($_POST['password'])) {
+    mysql_query("UPDATE user SET id_user      = '".$_POST['id_user']."',
+                                 nama_lengkap = '".$_POST['nama_lengkap']."',
+                                 email        = '".$_POST['email']."'  
+                           WHERE id_user      = '".$_POST['id']."'");
   }
   // Apabila password diubah
   else{
-    $pass=md5($_POST[password]);
-    mysql_query("UPDATE user SET id_user      = '$_POST[id_user]',
-                                 password     = '$pass',
-                                 nama_lengkap = '$_POST[nama_lengkap]',
-                                 email        = '$_POST[email]'  
-                           WHERE id_user      = '$_POST[id]'");
+    $pass=md5($_POST['password']);
+    mysql_query("UPDATE user SET id_user      = '".$_POST['id_user']."',
+                                 password     = '".$pass."',
+                                 nama_lengkap = '".$_POST['nama_lengkap']."',
+                                 email        = '".$_POST['email']."'
+                           WHERE id_user      = '".$_POST['id']."'");
   }
   header('location:media.php?module='.$module);
 }
@@ -115,8 +115,17 @@ elseif ($module=='agenda' AND $act=='update'){
                            WHERE id_agenda   = '$_POST[id]'");
   header('location:media.php?module='.$module);
 }
-
-
+//Input Kategori
+elseif ($module=='kategori' AND $act=='input'){
+  mysql_query("INSERT INTO kategori(nama_kategori,keterangan) VALUES('".$_POST['nama_kategori']."','".$_POST['keterangan']."')");
+  header('location:media.php?module='.$module);
+}
+//Update Kategori
+elseif ($module=='kategori' AND $act=='update'){
+  mysql_query("UPDATE kategori SET nama_kategori='".$_POST['nama_kategori']."', keterangan='".$_POST['keterangan']."', aktif='".$_POST['aktif']."' 
+               WHERE id_kategori = '".$_POST['id']."'");
+  header('location:media.php?module='.$module);
+}
 // Input pengumuman
 elseif ($module=='pengumuman' AND $act=='input'){
   $tanggal=sprintf("%02d%02d%02d",$_POST[thn],$_POST[bln],$_POST[tgl]);
