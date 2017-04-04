@@ -6,7 +6,7 @@ include "config/library.php";
 include "config/class_paging.php";
 
 // Bagian Home
-if ($_GET[module]=='home'){
+if ($_GET['module']=='home'){
   echo "<tr><td align=center><img src=images/welcome.jpg><br><br></td></tr>";
   
   // Tampilkan 3 berita terbaru
@@ -83,32 +83,31 @@ if ($_GET[module]=='home'){
 
 
 // Detail Berita
-elseif ($_GET[module]=='detailberita'){
-	$detail=mysql_query("SELECT * FROM berita,user 
-                      WHERE user.id_user=berita.id_user 
-                      AND id_berita='$_GET[id]'");
+elseif ($_GET['module']=='detailberita'){
+	$detail = mysql_query("SELECT * FROM berita,user 
+                         WHERE user.id_user = berita.id_user 
+                         AND id_berita='".$_GET['id']."'");
 	$d   = mysql_fetch_array($detail);
-	$tgl = tgl_indo($d[tanggal]);
-	echo "<tr><td class=isi_kecil>$d[hari], $tgl</td></tr>";
-	echo "<tr><td class=judul>$d[judul]</td></tr>";
-	echo "<tr><td class=isi_kecil>Ditulis Oleh : $d[nama_lengkap]</td></tr>";
+	$tgl = tgl_indo($d['tanggal']);
+	echo '<tr><td class="isi_kecil">'.$d['hari'].','.$tgl.'</td></tr>';
+	echo '<tr><td class="judul">'.$d['judul'].'</td></tr>';
+	echo '<tr><td class="isi_kecil">Ditulis Oleh : '.$d['nama_lengkap'].'</td></tr>';
   echo "<tr><td class=isi>";
- 	if ($d[gambar]!=''){
-		echo "<img src='admin/foto_berita/$d[gambar]' hspace=10 border=0 align=left>";
+ 	if ($d['gambar']!=''){
+		echo '<img src="admin/foto_berita/'.$d['gambar'].'" hspace="10" border="0" align="left">';
 	}
- 	$isi_berita=nl2br($d[isi_berita]);
+ 	$isi_berita=nl2br($d['isi_berita']);
 	echo "$isi_berita</td></tr>";	 		  
 	echo "<tr><td class=kembali><br>
         [ <a href=javascript:history.go(-1)>Kembali</a> ]</td></tr>";	 		  
 
   // Apabila berita dibuka, maka tambahkan counternya
-  mysql_query("UPDATE berita SET counter=$d[counter]+1 
-              WHERE id_berita='$_GET[id]'");
+  mysql_query("UPDATE berita SET counter = ".($d['counter'] + 1)." WHERE id_berita='".$_GET['id']."'");
 }
 
 
 // Bagian Berita
-elseif ($_GET[module]=='berita'){
+elseif ($_GET['module']=='berita'){
    echo "<tr><td class=judul_head>&#187; Berita</td></tr>";
       
   $p      = new Paging;
@@ -144,7 +143,7 @@ elseif ($_GET[module]=='berita'){
 
 
 // Bagian Agenda
-elseif ($_GET[module]=='agenda'){
+elseif ($_GET['module']=='agenda'){
    echo "<tr><td class=judul_head>&#187; Agenda</td></tr>";
       
   $p      = new Paging;
@@ -177,10 +176,10 @@ elseif ($_GET[module]=='agenda'){
 
 
 // Detail Agenda
-elseif ($_GET[module]=='detailagenda'){
+elseif ($_GET['module']=='detailagenda'){
 	$detail=mysql_query("SELECT * FROM agenda,user 
                       WHERE user.id_user=agenda.id_user 
-                      AND id_agenda='$_GET[id]'");
+                      AND id_agenda='".$_GET['id']."'");
 	$d   = mysql_fetch_array($detail);
   $tgl_mulai   = tgl_indo($d[tgl_mulai]);
   $tgl_selesai = tgl_indo($d[tgl_selesai]);
@@ -198,7 +197,7 @@ elseif ($_GET[module]=='detailagenda'){
 
 
 // Bagian Pengumuman
-elseif ($_GET[module]=='pengumuman'){
+elseif ($_GET['module']=='pengumuman'){
    echo "<tr><td class=judul_head>&#187; Pengumuman</td></tr>";
       
   $p      = new Paging;
@@ -229,10 +228,10 @@ elseif ($_GET[module]=='pengumuman'){
 
 
 // Detail Pengumuman
-elseif ($_GET[module]=='detailpengumuman'){
+elseif ($_GET['module']=='detailpengumuman'){
 	$detail=mysql_query("SELECT * FROM pengumuman,user 
                       WHERE user.id_user=pengumuman.id_user 
-                      AND id_pengumuman='$_GET[id]'");
+                      AND id_pengumuman='".$_GET['id']."'");
 	$d   = mysql_fetch_array($detail);
   $tgl         = tgl_indo($d[tanggal]);
   $isi         = nl2br($d[isi]);
@@ -248,7 +247,7 @@ elseif ($_GET[module]=='detailpengumuman'){
 
 
 // Bagian Hubungi Kami
-elseif ($_GET[module]=='hubungi'){
+elseif ($_GET['module']=='hubungi'){
   echo "<tr><td class=judul_head>&#187; Hubungi Kami</td></tr>";
 
   echo "<tr><td class=isi>Silahkan hubungi kami secara online:</td></tr>";  
@@ -266,7 +265,7 @@ elseif ($_GET[module]=='hubungi'){
 }
 
 // Bagian Login Alumni
-elseif ($_GET[module]=='alumni'){
+elseif ($_GET['module']=='alumni'){
   echo "<tr><td class=judul_head>&#187; Survei ALumni TI UNS</td></tr>";
 
   echo "<img src='admin/images/login-welcome.gif' width='97' height='105' hspace='10' align='left'>";
@@ -284,7 +283,7 @@ elseif ($_GET[module]=='alumni'){
 }
 
 // Bagian Registrasi Alumni
-elseif ($_GET[module]=='registrasi'){
+elseif ($_GET['module']=='registrasi'){
   echo "<tr><td class=judul_head>&#187; Registrasi ALumni TI UNS</td></tr>";
 
   //echo "<form method=POST action='admin/modul/cek_alumni.php'>
@@ -309,7 +308,7 @@ elseif ($_GET[module]=='registrasi'){
 }
 
 // Bagian Kirim Email
-elseif ($_GET[module]=='kirimemail'){
+elseif ($_GET['module']=='kirimemail'){
   mysql_query("INSERT INTO hubungi(nama,
                                    email,
                                    subjek,
@@ -329,7 +328,7 @@ elseif ($_GET[module]=='kirimemail'){
 
 
 // Bagian Profil
-elseif ($_GET[module]=='profil'){
+elseif ($_GET['module']=='profil'){
    echo "<tr><td class=judul_head>&#187; Profil Lembaga</td></tr>";
 
 	$profil = mysql_query("SELECT * FROM modul WHERE id_modul='11'");
@@ -348,7 +347,7 @@ elseif ($_GET[module]=='profil'){
 
 
 // Bagian Hasil Pencarian
-elseif ($_GET[module]=='hasilcari'){
+elseif ($_GET['module']=='hasilcari'){
    echo "<tr><td class=judul_head>&#187; Hasil Pencarian</td></tr>";
 
   // Hanya mencari berita, apabila diperlukan bisa ditambahkan utk mencari agenda, pengumuman, dll

@@ -1,23 +1,23 @@
 <table width=100% cellspacing=5>
 <?php
-include "config/koneksi.php";
+include 'config/koneksi.php';
 
 // Form Pencarian
-echo "<tr><td colspan=2><img src=images/search.jpg></td></tr>
-      <tr><td colspan=2>
-      <form method=POST action='?module=hasilcari'>    
-        <input name=kata type=text size=23>
-        <input type=submit value=Cari>
+echo '<tr><td colspan="2"><img src="images/search.jpg"></td></tr>
+      <tr><td colspan="2">
+      <form method="POST" action="?module=hasilcari">    
+        <input name="kata" type="text" size="23">
+        <input type="submit" value="Cari">
       </form>
-      <hr color=#265180></td></tr>";
+      <hr color="#265180"></td></tr>';
 
 // Menu Utama
-echo "<tr><td colspan=2><img src=images/mainmenu.jpg></td></tr>";
+echo '<tr><td colspan=2><img src="images/mainmenu.jpg"></td></tr>';
 $menu=mysql_query("SELECT * FROM modul 
                    WHERE publish='Y' and aktif='Y' 
                    ORDER BY urutan");
-echo "<tr><td class=bullet>&bull; </td>
-      <td><div id=menu><a href=?module=home> Home</a></div></td></tr>";
+echo '<tr><td class=bullet>&bull; </td>
+      <td><div id="menu"><a href="?module=home"> Home</a></div></td></tr>';
 while($r=mysql_fetch_array($menu)){
   echo "<tr><td class=bullet>&bull; </td>
         <td><div id=menu><a href=$r[link]> $r[nama_modul]</a></div></td></tr>";
